@@ -52,13 +52,13 @@ private:
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
         m_instance = this;
-        m_model = std::make_unique<SchemeModel>();
+        m_schemeModel = std::make_unique<SchemeModel>();
     }
 
 
     static ProjectModel* m_instance;
 
-    std::unique_ptr<SchemeModel> m_model;
+    std::unique_ptr<SchemeModel> m_schemeModel;
 };
 ProjectModel* ProjectModel::m_instance = nullptr;
 

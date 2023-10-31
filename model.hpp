@@ -1,4 +1,7 @@
-#pragma once
+#ifndef MODEL_H
+#define MODEL_H
+
+#include "controller.hpp"
 
 class ElementBaseModel;
 class ElementRectModel;
@@ -17,13 +20,18 @@ class SchemeModel
 public:
 
     SchemeModel()
-    {   std::cout << __PRETTY_FUNCTION__ << '\n';   }
+    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';
+
+        m_controller = new SchemeController(this);
+    }
 
     ~SchemeModel()
     {   std::cout << __PRETTY_FUNCTION__ << '\n';   }
 
 private:
 
+    SchemeController* m_controller = nullptr;
     std::list<std::unique_ptr<ElementBaseModel>> m_elems;
 };
 
@@ -79,3 +87,6 @@ public:
 private:
 
 };
+
+
+#endif
