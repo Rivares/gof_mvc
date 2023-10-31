@@ -20,7 +20,8 @@ public:
 
         m_model = ptrToModel;
 
-        m_controller = std::make_shared<SchemeController>(m_model);
+        std::shared_ptr<SchemeController> controller(this);
+        m_controller = std::move(controller);
 
         m_view = std::make_shared<SchemeView>(m_controller);
     }
