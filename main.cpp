@@ -6,41 +6,27 @@
 #include <string>
 #include <memory>
 
+class ProjectModel;
+class ProjectController;
+class ProjectView;
+
 enum class TypeFile
 {
     JSON,
     BINARY
 };
 
-class Project
+class ProjectModel
 {
 public:
     // singlton
-    static Project* instance()
-    {   return ((!m_instance)? new Project() : m_instance); }
+    static ProjectModel* instance()
+    {   return ((!m_instance)? new ProjectModel() : m_instance); }
 
-    Project(const Project&) = delete;
-    Project(const Project&&) = delete;
-    Project& operator = (const Project&) = delete;
-
-    void exportToFile(const TypeFile& type = TypeFile::JSON);
-    void importFromFile(const std::string& file);
-
-    // (to future to use protobuf)
-    // write export to json file
-    std::variant<Model> serialization();
-
-    // read import to json file
-    void deserialization(const std::variant<Model>& data);
-
-private:
-    explicit Project()
+    ~ProjectModel()
     {
-        m_instance = this;
-        m_model = std::make_unique<Model>();
-    }
-    ~Project()
-    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';
+
         if (m_instance)
         {
             m_instance = nullptr;
@@ -48,11 +34,112 @@ private:
         }
     }
 
-    static Project* m_instance;
+    ProjectModel(const ProjectModel&) = delete;
+    ProjectModel(const ProjectModel&&) = delete;
+    ProjectModel& operator = (const ProjectModel&) = delete;
 
-    std::unique_ptr<Model> m_model;
+
+    // (to future to use protobuf)
+    // write export to json file
+    std::variant<ProjectModel> serialization();
+
+    // read import to json file
+    void deserialization(const std::variant<ProjectModel>& data);
+
+private:
+    explicit ProjectModel()
+    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';
+
+        m_instance = this;
+        m_model = std::make_unique<SchemeModel>();
+    }
+
+
+    static ProjectModel* m_instance;
+
+    std::unique_ptr<SchemeModel> m_model;
 };
-Project* Project::m_instance = nullptr;
+ProjectModel* ProjectModel::m_instance = nullptr;
+
+
+
+class ProjectController
+{
+public:
+
+    explicit ProjectController(ProjectModel* ptrToModel)
+    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';
+
+        std::shared_ptr<ProjectModel> tmpPtrToModel(ptrToModel);
+        m_model = tmpPtrToModel;
+
+        std::shared_ptr<ProjectController> tmpPtrToController(this);
+        m_controller = tmpPtrToController;
+    }
+    ~ProjectController()
+    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';
+    }
+
+    void setView(ProjectView* ptrToView)
+    {
+        std::shared_ptr<ProjectView> tmpPtrToView(ptrToView);
+        m_view = tmpPtrToView;
+    }
+
+    void exportToFile(const TypeFile& type = TypeFile::JSON);
+    void importFromFile(const std::string& file);
+    void saveProj()
+    {   exportToFile(TypeFile::JSON); }
+
+    // (to future to use protobuf)
+    // write export to json file
+    std::variant<ProjectController> serialization();
+
+    // read import to json file
+    void deserialization(const std::variant<ProjectController>& data);
+
+private:
+
+    std::shared_ptr<ProjectController> m_controller;
+
+    std::shared_ptr<ProjectModel> m_model;
+    std::shared_ptr<ProjectView> m_view;
+};
+
+
+class ProjectView
+{
+public:
+
+    explicit ProjectView(ProjectController* ptrToController)
+    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';
+
+        std::shared_ptr<ProjectController> tmpPtrToController(ptrToController);
+        m_controller = tmpPtrToController;
+    }
+    ~ProjectView()
+    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';
+    }
+
+
+    // (to future to use protobuf)
+    // write export to json file
+    std::variant<ProjectView> serialization();
+
+    // read import to json file
+    void deserialization(const std::variant<ProjectView>& data);
+
+private:
+
+    std::shared_ptr<ProjectController> m_controller;
+};
+
+
 
 int main()
 {
@@ -78,7 +165,11 @@ int main()
 //    2. Помнить про принцип единственности ответственности, разделить код на логические
 //    модули (классы, функции).
 
-    Project* initialProj = Project::instance();
+    ProjectModel*       projModel       = ProjectModel::instance();
+    ProjectController*  projController  = new ProjectController(projModel);
+    ProjectView*        projView        = new ProjectView(projController);
+
+    projController->setView(projView);
 
     return 0;
 }

@@ -1,58 +1,80 @@
 #pragma once
 
+class ElementBaseModel;
+class ElementRectModel;
+class ElementLineModel;
+class ElementElipseModel;
 
 // (доступ к данным)
 
-class Model
+#include <iostream>
+
+#include <memory>
+#include <list>
+
+class SchemeModel
 {
 public:
 
-    Model() = default;
-    ~Model() = default;
+    SchemeModel()
+    {   std::cout << __PRETTY_FUNCTION__ << '\n';   }
+
+    ~SchemeModel()
+    {   std::cout << __PRETTY_FUNCTION__ << '\n';   }
+
+private:
+
+    std::list<std::unique_ptr<ElementBaseModel>> m_elems;
+};
+
+class ElementBaseModel
+{
+public:
+
+    ElementBaseModel()
+    {}
+
+    ~ElementBaseModel()
+    {}
 
 private:
 
 };
 
-class ElementBase
+class ElementRectModel: public ElementBaseModel
 {
 public:
 
-    ElementBase();
-    ~ElementBase();
+    ElementRectModel()
+    {}
+    ~ElementRectModel()
+    {}
 
 private:
 
 };
 
-class ElementRect: public ElementBase
+class ElementLineModel: public ElementRectModel
 {
 public:
 
-    ElementRect();
-    ~ElementRect();
+    ElementLineModel()
+    {}
+    ~ElementLineModel()
+    {}
 
 private:
 
 };
 
-class ElementLine: public ElementRect
+class ElementElipseModel: public ElementBaseModel
 {
 public:
 
-    ElementLine();
-    ~ElementLine();
-
-private:
-
-};
-
-class ElementElipse: public ElementBase
-{
-public:
-
-    ElementElipse();
-    ~ElementElipse();
+    ElementElipseModel()
+    {}
+    ~ElementElipseModel()
+    {}
 
 private:
 
