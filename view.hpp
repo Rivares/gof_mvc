@@ -12,7 +12,7 @@ class SchemeController;
 class SchemeView
 {
 public:
-    SchemeView(SchemeController* ptrToController)
+    SchemeView(std::shared_ptr<SchemeController> ptrToController)
     {
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
@@ -25,7 +25,7 @@ public:
     }
 
 private:
-    SchemeController* m_controller = nullptr;
+    std::shared_ptr<SchemeController> m_controller;
 };
 
 

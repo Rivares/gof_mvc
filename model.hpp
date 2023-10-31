@@ -23,7 +23,9 @@ public:
     {
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
-        m_controller = new SchemeController(this);
+        std::shared_ptr<SchemeModel> model(this);
+        m_model = std::move(model);
+        m_controller = std::make_shared<SchemeController>(m_model);
     }
 
     ~SchemeModel()
@@ -31,7 +33,9 @@ public:
 
 private:
 
-    SchemeController* m_controller = nullptr;
+    std::shared_ptr<SchemeModel> m_model;
+
+    std::shared_ptr<SchemeController> m_controller;
     std::list<std::unique_ptr<ElementBaseModel>> m_elems;
 };
 

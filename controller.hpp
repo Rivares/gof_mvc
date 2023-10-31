@@ -14,12 +14,15 @@ class SchemeView;
 class SchemeController
 {
 public:
-    SchemeController(SchemeModel* ptrToModel)
+    SchemeController(std::shared_ptr<SchemeModel> ptrToModel)
     {
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
         m_model = ptrToModel;
-        m_view = new SchemeView(this);
+
+        m_controller = std::make_shared<SchemeController>(m_model);
+
+        m_view = std::make_shared<SchemeView>(m_controller);
     }
 
     ~SchemeController()
@@ -29,8 +32,10 @@ public:
 
 
 private:
-    SchemeModel* m_model = nullptr;
-    SchemeView* m_view = nullptr;
+    std::shared_ptr<SchemeController> m_controller;
+
+    std::shared_ptr<SchemeModel> m_model;
+    std::shared_ptr<SchemeView> m_view;
 };
 
 
