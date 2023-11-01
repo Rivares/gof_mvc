@@ -1,6 +1,4 @@
-#include "lib.hpp"
-
-#include "model.hpp"
+#include "scheme_model.hpp"
 
 #include <variant>
 #include <string>
@@ -73,10 +71,10 @@ public:
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
         std::shared_ptr<ProjectModel> tmpPtrToModel(ptrToModel);
-        m_model = tmpPtrToModel;
+        m_model = std::move(tmpPtrToModel);
 
         std::shared_ptr<ProjectController> tmpPtrToController(this);
-        m_controller = tmpPtrToController;
+        m_controller = std::move(tmpPtrToController);
     }
     ~ProjectController()
     {
@@ -86,7 +84,7 @@ public:
     void setView(ProjectView* ptrToView)
     {
         std::shared_ptr<ProjectView> tmpPtrToView(ptrToView);
-        m_view = tmpPtrToView;
+        m_view = std::move(tmpPtrToView);
     }
 
     void exportToFile(const TypeFile& type = TypeFile::JSON);
@@ -119,7 +117,7 @@ public:
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
         std::shared_ptr<ProjectController> tmpPtrToController(ptrToController);
-        m_controller = tmpPtrToController;
+        m_controller = std::move(tmpPtrToController);
     }
     ~ProjectView()
     {

@@ -24,13 +24,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(${PROJECT_NAME}
   main.cpp
-  lib.hpp
-  model.hpp
-  view.hpp
-  controller.hpp
-  model.cpp
-  view.cpp
-  controller.cpp
+  scheme_model.hpp
+  scheme_view.hpp
+  scheme_controller.hpp
+  elementbase_model.hpp
+  elementbase_view.hpp
+  elementbase_controller.hpp
+  elementrect_model.hpp
+  elementrect_view.hpp
+  elementrect_controller.hpp
 )
 #target_link_libraries(ip_filter Qt${QT_VERSION_MAJOR}::Core)
 

@@ -1,8 +1,10 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef SCH_CONTROLLER_H
+#define SCH_CONTROLLER_H
 
-#include "model.hpp"
-#include "view.hpp"
+#include "scheme_model.hpp"
+#include "scheme_view.hpp"
+
+#include "elementbase_model.hpp"
 
 #include <iostream>
 #include <memory>
@@ -10,7 +12,12 @@
 class SchemeModel;
 class SchemeView;
 
+enum class TypeElem;
+
+//class ElementBaseModel;
+
 // (методы редактирования)
+
 class SchemeController
 {
 public:
@@ -31,6 +38,12 @@ public:
         std::cout << __PRETTY_FUNCTION__ << '\n';
     }
 
+    void addNewElem(const TypeElem& type)
+    {}
+    void remElem(ElementBaseModel* elem)
+    {}
+    void updateElem(ElementBaseModel* elem)
+    {}
 
 private:
     std::shared_ptr<SchemeController> m_controller;
