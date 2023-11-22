@@ -1,4 +1,6 @@
 #include "scheme_model.hpp"
+#include "scheme_controller.hpp"
+#include "scheme_view.hpp"
 
 #include <variant>
 #include <string>
@@ -17,25 +19,45 @@ enum class TypeFile
 class ProjectModel
 {
 public:
-    // singlton
-    static ProjectModel* instance()
-    {   return ((!m_instance)? new ProjectModel() : m_instance); }
+
+    explicit ProjectModel(const std::string& projName) :
+        m_projName(projName)
+    {
+        std::cout << __PRETTY_FUNCTION__ << '\n';        
+    }
 
     ~ProjectModel()
     {
         std::cout << __PRETTY_FUNCTION__ << '\n';
-
-        if (m_instance)
-        {
-            m_instance = nullptr;
-            delete m_instance;
-        }
     }
 
     ProjectModel(const ProjectModel&) = delete;
     ProjectModel(const ProjectModel&&) = delete;
     ProjectModel& operator = (const ProjectModel&) = delete;
 
+    void setController(std::shared_ptr<ProjectController> controller)
+    {   m_controller = controller;  }
+
+
+    void createScheme()
+    {
+        m_schemeModel = std::make_shared<SchemeModel>();
+        m_schemeController = std::make_shared<SchemeController>(m_schemeModel);
+        m_schemeView = std::make_shared<SchemeView>(m_schemeController);
+
+        m_schemeModel->setSchemeController(m_schemeController);
+        m_schemeController->setSchemeView(m_schemeView);
+    }
+
+    void callSignalAddElem(const TypeElem& type)
+    {
+        m_schemeView->signalAddElem(type);
+    }
+
+    void callSignalRemElem(const size_t idx) // current Element. Need use ElementBase* elem...
+    {
+        m_schemeView->signalRemElem(idx);
+    }
 
     // (to future to use protobuf)
     // write export to json file
@@ -45,20 +67,14 @@ public:
     void deserialization(const std::variant<ProjectModel>& data);
 
 private:
-    explicit ProjectModel()
-    {
-        std::cout << __PRETTY_FUNCTION__ << '\n';
+    std::string m_projName;
 
-        m_instance = this;
-        m_schemeModel = std::make_unique<SchemeModel>();
-    }
+    std::shared_ptr<ProjectController> m_controller;
 
-
-    static ProjectModel* m_instance;
-
-    std::unique_ptr<SchemeModel> m_schemeModel;
+    std::shared_ptr<SchemeModel> m_schemeModel;
+    std::shared_ptr<SchemeController> m_schemeController;
+    std::shared_ptr<SchemeView> m_schemeView;
 };
-ProjectModel* ProjectModel::m_instance = nullptr;
 
 
 
@@ -66,26 +82,19 @@ class ProjectController
 {
 public:
 
-    explicit ProjectController(ProjectModel* ptrToModel)
+    explicit ProjectController(std::shared_ptr<ProjectModel> ptrToModel)
     {
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
-        std::shared_ptr<ProjectModel> tmpPtrToModel(ptrToModel);
-        m_model = std::move(tmpPtrToModel);
-
-        std::shared_ptr<ProjectController> tmpPtrToController(this);
-        m_controller = std::move(tmpPtrToController);
+        m_model = ptrToModel;
     }
     ~ProjectController()
     {
         std::cout << __PRETTY_FUNCTION__ << '\n';
     }
 
-    void setView(ProjectView* ptrToView)
-    {
-        std::shared_ptr<ProjectView> tmpPtrToView(ptrToView);
-        m_view = std::move(tmpPtrToView);
-    }
+    void setView(std::shared_ptr<ProjectView> ptrToView)
+    {   m_view = ptrToView;    }
 
     void exportToFile(const TypeFile& type = TypeFile::JSON);
     void importFromFile(const std::string& file);
@@ -101,10 +110,8 @@ public:
 
 private:
 
-    std::shared_ptr<ProjectController> m_controller;
-
-    std::shared_ptr<ProjectModel> m_model;
-    std::shared_ptr<ProjectView> m_view;
+    std::weak_ptr<ProjectModel> m_model;
+    std::weak_ptr<ProjectView> m_view;
 };
 
 
@@ -112,12 +119,11 @@ class ProjectView
 {
 public:
 
-    explicit ProjectView(ProjectController* ptrToController)
+    explicit ProjectView(std::shared_ptr<ProjectController>  ptrToController)
     {
         std::cout << __PRETTY_FUNCTION__ << '\n';
 
-        std::shared_ptr<ProjectController> tmpPtrToController(ptrToController);
-        m_controller = std::move(tmpPtrToController);
+        m_controller = ptrToController;
     }
     ~ProjectView()
     {
@@ -134,7 +140,7 @@ public:
 
 private:
 
-    std::shared_ptr<ProjectController> m_controller;
+    std::weak_ptr<ProjectController> m_controller;
 };
 
 
@@ -163,11 +169,22 @@ int main()
 //    2. Помнить про принцип единственности ответственности, разделить код на логические
 //    модули (классы, функции).
 
-    ProjectModel*       projModel       = ProjectModel::instance();
-    ProjectController*  projController  = new ProjectController(projModel);
-    ProjectView*        projView        = new ProjectView(projController);
 
+
+    std::shared_ptr<ProjectModel>       projModel(std::make_shared<ProjectModel>("nameProj"));
+    std::shared_ptr<ProjectController>  projController(std::make_shared<ProjectController>(projModel));    
+    std::shared_ptr<ProjectView>        projView(std::make_shared<ProjectView>(projController));
+
+    projModel->setController(projController);
     projController->setView(projView);
+
+    std::cout << '\n';
+    projModel->createScheme();
+
+    projModel->callSignalAddElem(TypeElem::RECT); // simulation call signal
+    projModel->callSignalRemElem(0); // simulation call signal
+
+    std::cout << '\n';
 
     return 0;
 }

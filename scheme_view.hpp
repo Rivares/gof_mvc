@@ -1,9 +1,8 @@
-#ifndef SCH_VIEW_H
-#define SCH_VIEW_H
+#pragma once
 
 #include "scheme_controller.hpp"
 
-#include "elementbase_model.hpp"
+#include "elementbase.hpp"
 
 #include <iostream>
 #include <memory>
@@ -17,26 +16,15 @@ class SchemeController;
 class SchemeView
 {
 public:
-    SchemeView(std::shared_ptr<SchemeController> ptrToController)
-    {
-        std::cout << __PRETTY_FUNCTION__ << '\n';
-
-        m_controller = ptrToController;
-    }
-
-    ~SchemeView()
-    {
-        std::cout << __PRETTY_FUNCTION__ << '\n';
-    }
+    SchemeView(std::shared_ptr<SchemeController> ptrToController);
+    ~SchemeView();
 
     void signalAddElem(const TypeElem& type);
-    void signalRemElem(ElementBaseModel* elem);
-    void signalUpdateElem(ElementBaseModel* elem);
+    void signalRemElem(const size_t idx); // current Element. Need use ElementBase* elem...
+    void signalUpdateElem(ElementBase* elem);
 
 
 private:
     std::shared_ptr<SchemeController> m_controller;
 };
 
-
-#endif

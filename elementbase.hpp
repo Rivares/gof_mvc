@@ -1,7 +1,4 @@
-#ifndef ELEM_BASE_MODEL_H
-#define ELEM_BASE_MODEL_H
-
-#include "elementbase_controller.hpp"
+#pragma once
 
 
 // (доступ к данным)
@@ -20,17 +17,17 @@ enum class TypeElem
     ELIPS
 };
 
-class ElementBaseModel
+class ElementBase
 {
 public:
 
     struct Pos
     {   float x = 0.0; float y = 0.0;   };
 
-    ElementBaseModel()
+    ElementBase()
     {}
 
-    ~ElementBaseModel()
+    ~ElementBase()
     {}
 
     virtual Pos getPosCenter() const = 0;
@@ -49,5 +46,3 @@ protected:
 };
 
 
-
-#endif

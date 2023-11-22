@@ -1,10 +1,9 @@
-#ifndef SCH_CONTROLLER_H
-#define SCH_CONTROLLER_H
+#pragma once
 
 #include "scheme_model.hpp"
 #include "scheme_view.hpp"
 
-#include "elementbase_model.hpp"
+#include "elementbase.hpp"
 
 #include <iostream>
 #include <memory>
@@ -21,36 +20,19 @@ enum class TypeElem;
 class SchemeController
 {
 public:
-    SchemeController(std::shared_ptr<SchemeModel> ptrToModel)
-    {
-        std::cout << __PRETTY_FUNCTION__ << '\n';
+    SchemeController(std::shared_ptr<SchemeModel> ptrToModel);
+    ~SchemeController();
 
-        m_model = ptrToModel;
+    void setSchemeView(std::shared_ptr<SchemeView> ptrToView);
 
-        std::shared_ptr<SchemeController> controller(this);
-        m_controller = std::move(controller);
-
-        m_view = std::make_shared<SchemeView>(m_controller);
-    }
-
-    ~SchemeController()
-    {
-        std::cout << __PRETTY_FUNCTION__ << '\n';
-    }
-
-    void addNewElem(const TypeElem& type)
-    {}
-    void remElem(ElementBaseModel* elem)
-    {}
-    void updateElem(ElementBaseModel* elem)
-    {}
+    void addNewElem(const TypeElem& type);
+    void remElem(ElementBase* elem);
+    void updateElem(ElementBase* elem);
 
 private:
-    std::shared_ptr<SchemeController> m_controller;
 
-    std::shared_ptr<SchemeModel> m_model;
-    std::shared_ptr<SchemeView> m_view;
+    std::weak_ptr<SchemeModel> m_model;
+    std::weak_ptr<SchemeView> m_view;
 };
 
 
-#endif

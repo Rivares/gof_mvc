@@ -1,78 +1,40 @@
-#ifndef SCH_MODEL_H
-#define SCH_MODEL_H
+#pragma once
 
 #include "scheme_controller.hpp"
 
-#include "elementbase_model.hpp"
-#include "elementrect_model.hpp"
+#include "elementbase.hpp"
+#include "elementrect.hpp"
 
 // (доступ к данным)
 
 #include <iostream>
 
 #include <memory>
-#include <list>
+#include <unordered_set>
 
 enum class TypeElem;
 
 class SchemeController;
 
-class ElementBaseModel;
+class ElementBase;
 
 class SchemeModel
 {
 public:
 
-    SchemeModel()
-    {
-        std::cout << __PRETTY_FUNCTION__ << '\n';
+    SchemeModel();
+    ~SchemeModel();
 
-        std::shared_ptr<SchemeModel> model(this);
-        m_model = std::move(model);
-        m_controller = std::make_shared<SchemeController>(m_model);
-    }
+    void setSchemeController(std::shared_ptr<SchemeController> controller);
 
-    ~SchemeModel()
-    {   std::cout << __PRETTY_FUNCTION__ << '\n';   }
-
-    void addNewElem(const TypeElem& type)
-    {
-        switch (type)
-        {
-            case TypeElem::RECT:
-                m_elems.push_back(std::move(std::make_unique<ElementRectModel>()));
-            break;
-        }
-    }
-    void remElem(ElementBaseModel* elem)
-    {
-        if (elem)
-        {
-            for(auto& item: m_elems)
-            {
-                if (item.get() == elem)
-                {
-                    auto ptr = item.release();
-                    m_elems.remove(item);
-                    ptr = nullptr;
-                    delete ptr;
-
-                    break;
-                }
-            }
-        }
-    }
-    void updateElem(ElementBaseModel* elem)
-    {}
+    void addNewElem(const TypeElem& type);
+    void remElem(ElementBase* elem);
+    void updateElem(ElementBase* elem);
 
 private:
 
-    std::shared_ptr<SchemeModel> m_model;
+    std::weak_ptr<SchemeController> m_controller;
 
-    std::shared_ptr<SchemeController> m_controller;
-
-    std::list<std::unique_ptr<ElementBaseModel>> m_elems;
+    std::unordered_set<std::unique_ptr<ElementBase>> m_elems;
 };
 
-
-#endif

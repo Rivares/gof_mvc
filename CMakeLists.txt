@@ -27,12 +27,11 @@ add_executable(${PROJECT_NAME}
   scheme_model.hpp
   scheme_view.hpp
   scheme_controller.hpp
-  elementbase_model.hpp
-  elementbase_view.hpp
-  elementbase_controller.hpp
-  elementrect_model.hpp
-  elementrect_view.hpp
-  elementrect_controller.hpp
+  scheme_model.cpp
+  scheme_view.cpp
+  scheme_controller.cpp
+  elementbase.hpp
+  elementrect.hpp
 )
 #target_link_libraries(ip_filter Qt${QT_VERSION_MAJOR}::Core)
 

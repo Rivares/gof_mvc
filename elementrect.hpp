@@ -1,13 +1,12 @@
-#ifndef ELEM_RECT_MODEL_H
-#define ELEM_RECT_MODEL_H
+#pragma once
 
-#include "elementbase_model.hpp"
+#include "elementbase.hpp"
 
 //enum class TypeElem;
-//class ElementBaseModel;
-//class ElementRectModel;
-//class ElementLineModel;
-//class ElementElipseModel;
+//class ElementBase;
+//class ElementRect;
+//class ElementLine;
+//class ElementElipsel;
 
 // (доступ к данным)
 
@@ -17,13 +16,13 @@
 #include <list>
 
 
-class ElementRectModel: public ElementBaseModel
+class ElementRect: public ElementBase
 {
 public:
 
-    ElementRectModel()
+    ElementRect()
     {}
-    ~ElementRectModel()
+    ~ElementRect()
     {}
 
     Pos getPosCenter() const override
@@ -72,4 +71,3 @@ private:
 //};
 
 
-#endif
