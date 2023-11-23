@@ -4,7 +4,7 @@ var searchData=
   ['schemecontroller_1',['SchemeController',['../classSchemeController.html#a53d0686c1cc3ba32701902d5de475407',1,'SchemeController']]],
   ['schememodel_2',['SchemeModel',['../classSchemeModel.html#a0e5c787d5bbf5f8d3352ffe024b76d23',1,'SchemeModel']]],
   ['schemeview_3',['SchemeView',['../classSchemeView.html#a1f0aaf86cc213c78d2b519bd44be215c',1,'SchemeView']]],
-  ['serialization_4',['serialization',['../classProjectModel.html#a827f6605e667c730e46e8e9f8240634b',1,'ProjectModel::serialization()'],['../classProjectController.html#aa8f0d98c89e1eebab935657d68fb8842',1,'ProjectController::serialization()'],['../classProjectView.html#aea9d994b550dec509ce8f4ffeea9bea8',1,'ProjectView::serialization()']]],
+  ['serialization_4',['serialization',['../classProjectController.html#aa8f0d98c89e1eebab935657d68fb8842',1,'ProjectController::serialization()'],['../classProjectModel.html#a827f6605e667c730e46e8e9f8240634b',1,'ProjectModel::serialization()'],['../classProjectView.html#aea9d994b550dec509ce8f4ffeea9bea8',1,'ProjectView::serialization()']]],
   ['setcolorbackground_5',['setcolorbackground',['../classElementBase.html#aa3618c5bf91ce9126cbe14d7deced68c',1,'ElementBase::setColorBackground()'],['../classElementRect.html#a1c8b3157c5f3cc191bd2590cea193535',1,'ElementRect::setColorBackground(std::string color) override']]],
   ['setcolorborder_6',['setcolorborder',['../classElementRect.html#a6ad22ba02d5c9566dbac2ba26716e703',1,'ElementRect::setColorBorder()'],['../classElementBase.html#a39a770658617aa564bddb0c6a829d196',1,'ElementBase::setColorBorder()']]],
   ['setcontroller_7',['setController',['../classProjectModel.html#af8e86443c5b8c0e0e9fbbeb0e25a2568',1,'ProjectModel']]],

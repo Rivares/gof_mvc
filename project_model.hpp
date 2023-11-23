@@ -13,7 +13,10 @@
 
 
 class ProjectController;
-
+/*!
+\htmlonly <style>div.image img[src="Diagram_of_classes.png"]{width:100px;}</style> \endhtmlonly
+@image html Diagram_of_classes.png
+*/
 /*!
     \brief Class of data for store all information
     \author Rivares
