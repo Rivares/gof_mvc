@@ -1,5 +1,7 @@
-#ifndef TEST_MAIN_GOOGLE
-#define TEST_MAIN_GOOGLE
+#pragma once
+
+#include "../../project_model.hpp"
+#include "../../project_controller.hpp"
+#include "../../project_view.hpp"
 
 
-#endif // TEST_MAIN_GOOGLE

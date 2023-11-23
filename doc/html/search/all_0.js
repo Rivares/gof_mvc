@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['b_0',['b',['../structoff.html#a373eb82392a69bbe94b4760b54b876ea',1,'off']]]
+  ['addnewelem_0',['addnewelem',['../classSchemeController.html#a905d808f70203888b61d7d146b148d2c',1,'SchemeController::addNewElem()'],['../classSchemeModel.html#a9b0e5b65f5d3c07e601bb5c35c181785',1,'SchemeModel::addNewElem()']]]
 ];

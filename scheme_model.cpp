@@ -41,5 +41,3 @@ void SchemeModel::remElem(ElementBase* elem)
     }
 }
 
-void SchemeModel::updateElem(ElementBase* elem)
-{}

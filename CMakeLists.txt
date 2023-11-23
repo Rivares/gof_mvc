@@ -11,9 +11,9 @@ project(${PROJECT_NAME} VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+#set(CMAKE_AUTOUIC ON)
+#set(CMAKE_AUTOMOC ON)
+#set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -23,16 +23,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 add_executable(${PROJECT_NAME}
-  main.cpp
-  scheme_model.hpp
-  scheme_view.hpp
-  scheme_controller.hpp
-  scheme_model.cpp
-  scheme_view.cpp
-  scheme_controller.cpp
-  elementbase.hpp
-  elementrect.hpp
+    main.cpp
+    common.hpp
+    project_model.hpp
+    project_controller.hpp
+    project_view.hpp
+    scheme_model.hpp
+    scheme_view.hpp
+    scheme_controller.hpp
+    project_model.cpp
+    project_controller.cpp
+    project_view.cpp
+    scheme_model.cpp
+    scheme_view.cpp
+    scheme_controller.cpp
+    elementbase.hpp
+    elementrect.hpp
 )
+
+
 #target_link_libraries(ip_filter Qt${QT_VERSION_MAJOR}::Core)
 
 #configure_file(ip_filter.tsv ${CMAKE_CURRENT_BINARY_DIR}/ip_filter.tsv COPYONLY)

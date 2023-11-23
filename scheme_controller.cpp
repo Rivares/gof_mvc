@@ -21,6 +21,4 @@ void SchemeController::addNewElem(const TypeElem& type)
 void SchemeController::remElem(ElementBase* elem)
 {   m_model.lock()->remElem(elem);   }
 
-void SchemeController::updateElem(ElementBase* elem)
-{}
 

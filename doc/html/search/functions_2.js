@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['print_5fip_0',['print_ip',['../lib_8hpp.html#a3cd837d0b96105d2afbf7dd9b77074e7',1,'lib.hpp']]],
-  ['printcontainer_1',['printContainer',['../lib_8hpp.html#a99876f7f916a91b68486790fbbd02a64',1,'lib.hpp']]],
-  ['printer_2',['printer',['../lib_8hpp.html#a2b838a777a5297ffb96d2fcee2f3579e',1,'lib.hpp']]]
+  ['deserialization_0',['deserialization',['../classProjectModel.html#ab5e0dd96ce344bd1308789255756ac44',1,'ProjectModel::deserialization()'],['../classProjectController.html#a0e55546d2b64f69aa8738fa91790b9c5',1,'ProjectController::deserialization()'],['../classProjectView.html#abed37bd1a34b8b3ab62951a1b548a9f0',1,'ProjectView::deserialization()']]]
 ];

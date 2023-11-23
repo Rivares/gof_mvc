@@ -16,9 +16,7 @@ void SchemeView::signalAddElem(const TypeElem& type)
 {   m_controller->addNewElem(type); }
 
 void SchemeView::signalRemElem(const size_t idx) // current Element. Need use ElementBase* elem...
-{   m_controller->remElem(nullptr); }
+{   m_controller->remElem(nullptr); }   // dummy arg
 
-void SchemeView::signalUpdateElem(ElementBase* elem)
-{}
 
 
